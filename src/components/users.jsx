@@ -11,8 +11,7 @@ import lodash from 'lodash'
 import {useParams} from 'react-router-dom'
 import UserProfile from '../screens/userProfile';
 
-const Users = ({onDelete,onToggleBookmark,users}) => {
-  console.log('users',users)
+const Users = ({props}) => {
   const params = useParams()
   const {userId} = params//the same as: userId = match.params.userId
   const pageSize = 4
@@ -20,7 +19,24 @@ const Users = ({onDelete,onToggleBookmark,users}) => {
   const [professions, setProfession] = useState()
   const [selectedProfession, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({iterator: "name", order: "asc"})
-
+  const [users, setUsers] = useState()
+  useEffect(() => {
+    api.users.fetchAll()
+        .then(data => {
+          setUsers(data)
+          console.log("data",data)
+        })
+    },[])
+  const handleDelete = (userId) => {
+      const newUsers = users.filter(user => user._id !== userId)
+      setUsers(newUsers)
+  }
+  const handleToggleBookMark = (userId) => {
+      const newStateUsers = [...users]
+      const index = newStateUsers.findIndex(user => user._id === userId)
+      newStateUsers[index].bookmark = !newStateUsers[index].bookmark
+      setUsers(newStateUsers)
+  }
     const handlePageChange = (pageIndex) => {
         console.log('pageIndx', pageIndex)
         setActivePage(pageIndex)
@@ -91,8 +107,8 @@ const Users = ({onDelete,onToggleBookmark,users}) => {
                 <UsersTable
                     userCrop={userCrop}
                     startIndex={startIndex}
-                    onDelete={onDelete}
-                    onToggleBookmark={onToggleBookmark}
+                    onDelete={handleDelete}
+                    onToggleBookmark={handleToggleBookMark}
                     onSort={setSortBy}
                     currentSort={sortBy}
                 />
