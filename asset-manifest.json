@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/react-table-pagination-filter-sorted-routing/static/css/main.d3980749.chunk.css",
+    "main.js": "/react-table-pagination-filter-sorted-routing/static/js/main.d658d6ee.chunk.js",
+    "main.js.map": "/react-table-pagination-filter-sorted-routing/static/js/main.d658d6ee.chunk.js.map",
+    "runtime-main.js": "/react-table-pagination-filter-sorted-routing/static/js/runtime-main.e2c6c92d.js",
+    "runtime-main.js.map": "/react-table-pagination-filter-sorted-routing/static/js/runtime-main.e2c6c92d.js.map",
+    "static/css/2.818011ed.chunk.css": "/react-table-pagination-filter-sorted-routing/static/css/2.818011ed.chunk.css",
+    "static/js/2.4d00cbef.chunk.js": "/react-table-pagination-filter-sorted-routing/static/js/2.4d00cbef.chunk.js",
+    "static/js/2.4d00cbef.chunk.js.map": "/react-table-pagination-filter-sorted-routing/static/js/2.4d00cbef.chunk.js.map",
+    "index.html": "/react-table-pagination-filter-sorted-routing/index.html",
+    "static/css/2.818011ed.chunk.css.map": "/react-table-pagination-filter-sorted-routing/static/css/2.818011ed.chunk.css.map",
+    "static/css/main.d3980749.chunk.css.map": "/react-table-pagination-filter-sorted-routing/static/css/main.d3980749.chunk.css.map",
+    "static/js/2.4d00cbef.chunk.js.LICENSE.txt": "/react-table-pagination-filter-sorted-routing/static/js/2.4d00cbef.chunk.js.LICENSE.txt",
+    "static/media/cactus.eee55710.svg": "/react-table-pagination-filter-sorted-routing/static/media/cactus.eee55710.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e2c6c92d.js",
+    "static/css/2.818011ed.chunk.css",
+    "static/js/2.4d00cbef.chunk.js",
+    "static/css/main.d3980749.chunk.css",
+    "static/js/main.d658d6ee.chunk.js"
+  ]
+}
