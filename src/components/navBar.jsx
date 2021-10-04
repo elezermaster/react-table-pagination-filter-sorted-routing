@@ -37,7 +37,7 @@ const NavBar = () => {
         // this value changes (useEffect re-run)
         [waitBeforeClose],
       );
-    return (
+      return (
         <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/" style={{marginLeft: 15}}>Fast Company</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{marginRight: 15}}/>
@@ -59,12 +59,12 @@ const NavBar = () => {
             <Nav.Link exact as={NavLinkStyled} to="/users" activeStyle={{color: 'white', textDecoration: 'none'}}>Users</Nav.Link>
 
             <NavDropdownStyled
-                exact="true"
+                //exact="true"
                 onMouseLeave={() => setShowDropdown(false)}
                 onMouseOver={() => setShowDropdown(true)}
                 //show={showDropdown}
                 title="Login"
-                onToggle={() => { (location.pathname !== '/sign-in') && (window.location.href = '/sign-in') }}
+                //onToggle={() => { (location.pathname !== '/sign-in') && (window.location.href = '/sign-in') }}
                 //as={NavItem}
                 //as={Link} to="/sign-in"
                 id="navbarScrollingDropdown">
