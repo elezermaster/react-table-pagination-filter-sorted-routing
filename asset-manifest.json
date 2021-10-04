@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-table-pagination-filter-sorted-routing/static/css/main.d3980749.chunk.css",
-    "main.js": "/react-table-pagination-filter-sorted-routing/static/js/main.d658d6ee.chunk.js",
-    "main.js.map": "/react-table-pagination-filter-sorted-routing/static/js/main.d658d6ee.chunk.js.map",
+    "main.js": "/react-table-pagination-filter-sorted-routing/static/js/main.d37ffd62.chunk.js",
+    "main.js.map": "/react-table-pagination-filter-sorted-routing/static/js/main.d37ffd62.chunk.js.map",
     "runtime-main.js": "/react-table-pagination-filter-sorted-routing/static/js/runtime-main.e2c6c92d.js",
     "runtime-main.js.map": "/react-table-pagination-filter-sorted-routing/static/js/runtime-main.e2c6c92d.js.map",
     "static/css/2.818011ed.chunk.css": "/react-table-pagination-filter-sorted-routing/static/css/2.818011ed.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.818011ed.chunk.css",
     "static/js/2.4d00cbef.chunk.js",
     "static/css/main.d3980749.chunk.css",
-    "static/js/main.d658d6ee.chunk.js"
+    "static/js/main.d37ffd62.chunk.js"
   ]
 }
