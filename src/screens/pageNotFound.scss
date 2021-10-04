@@ -1,0 +1,181 @@
+//@import "bourbon/bourbon";
+
+.not-found {
+    text-align: center;
+    padding: 100px 0px 50px;
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    z-index: 99;
+    position: relative;
+}
+.not-found h2 {
+    font-size: 36px;
+}
+.not-found h3 {
+    font-size: 22px;
+    font-weight: normal;
+}
+.not-found h2 span {
+    background-color: #eee;
+    color: #03A9F4;
+    width: 200px;
+    height: 170px;
+    display: inline-grid;
+    align-items: center;
+    font-size: 100px;
+    border-radius: 20px;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+.not-found p {
+    font-size: 33px;
+    line-height: 32px;
+    color: #9E9E9E;
+}
+.not-found .go-on {
+    padding: 20px 0px 20px;
+}
+.not-found .go-on a {
+    padding: 7px 15px;
+    background-color: #2196F3;
+    border-radius: 4px;
+    font-size: 20px;
+    margin: 10px 10px;
+    display: inline-block;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+}
+.not-found .go-on a:hover{
+  opacity: 0.8;
+}
+.not-found form input {
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+}
+.not-found form .submit-btn {
+    height: 40px;
+    border: none;
+    margin-left: 10px;
+    color: #fff;
+    background-color: #03a9f4;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0px 15px;
+}
+.not-found form .submit-btn:hover{
+  opacity: 0.8;
+}
+.not-found hr {
+    border: 1px solid #eeeeee;
+    margin: 30px 0px;
+}
+
+
+//kitten
+@import "bourbon";
+
+$green: #1ff042;
+
+// @include keyframes(cursor-blink) {
+// 	0% {
+// 		opacity: 0;
+// 	}
+// 	50% {
+// 		opacity: 1;
+// 	}
+// 	100% {
+// 		opacity: 0;
+// 	}
+// }
+
+
+
+.four-oh-four{
+	position: relative;
+	top: 0;
+	left: 0;
+	min-height: 100vh;
+	min-width: 100vw;
+	z-index: 2;
+	background-color: black;
+	transition: opacity 300ms ease-out;
+	background-position: center center;
+	background-repeat: no-repeat;
+	.dJAX_internal{
+		opacity: 0.0;
+	}
+
+	form, input{
+		position: fixed;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		background-color: black;
+	}
+}
+
+.terminal{
+	position: relative;
+	padding: 4rem;
+	box-shadow: 20px 25px 20px black;
+	
+
+	.prompt{
+		color: $green;
+		display: block;
+		font-family: 'AndaleMono', monospace;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 70;
+		letter-spacing: 0.15em;
+		white-space: pre-wrap;
+		text-shadow: 0 0 2px rgba($green,0.75);
+		line-height: 1;
+		margin-bottom: 0.75em;
+		background-color: black;
+
+		&:before {
+			content: '> ';
+			display: inline-block;
+		}
+	}
+
+	.new-output{
+		display: inline-block;
+		&:after {
+			display: inline-block;
+			vertical-align: -0.15em;
+			width: 0.75em;
+			height: 1em;
+			margin-left: 5px;
+			background: $green;
+			box-shadow: 1px 1px 1px rgba($green,0.65), -1px -1px 1px rgba($green,0.65), 1px -1px 1px rgba($green,0.65), -1px 1px 1px rgba($green,0.65);
+			//@include animation(cursor-blink 1.25s steps(1) infinite);
+			content: '';
+		}
+	}
+}
+
+.kittens{
+	p{
+		letter-spacing: 0;
+		opacity: 0;
+		line-height: 1rem;
+	}
+}
+
+.kitten-gif{
+	margin: 20px;
+	max-width: 300px;
+}
+
+.four-oh-four-form{
+	opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
