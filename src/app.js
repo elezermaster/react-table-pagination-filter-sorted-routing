@@ -4,8 +4,13 @@ import NavBar from './components/navBar';
 import {BrowserRouter,Redirect,Route,Switch,Link, NavLink} from 'react-router-dom'
 import Home from './screens/home'
 import PageNotFound from './screens/pageNotFound'
+<<<<<<< HEAD
 import LoginForm from './components/loginForm'
 import SignUpForm from './components/signupForm'
+=======
+import LoginForm from './screens/loginForm'
+import SignUpForm from './screens/signupForm'
+>>>>>>> ee25cd95f91847df0e3b236c13c9b07a14d4a8f7
 
 function App() {
   return (

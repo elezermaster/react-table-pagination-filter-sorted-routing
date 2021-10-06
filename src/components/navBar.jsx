@@ -39,9 +39,21 @@ const NavBar = () => {
       );
       return (
         <Navbar bg="light" expand="lg">
+<<<<<<< HEAD
         <Navbar.Brand href="/" style={{marginLeft: 15}}>Fast Company</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{marginRight: 15}}/>
         <Navbar.Collapse id="navbarScroll">
+=======
+        <Navbar.Brand
+            to="/"
+            style={{marginLeft: 15}}
+            >Fast Company</Navbar.Brand>
+        <Navbar.Toggle
+            aria-controls="responsive-navbar-nav"
+            style={{marginRight: 15}}
+            />
+        <Navbar.Collapse id="responsive-navbar-nav">
+>>>>>>> ee25cd95f91847df0e3b236c13c9b07a14d4a8f7
             <Nav
             className="mr-auto my-2 my-lg-1"
             style={{maxHeight: '100px'}}
