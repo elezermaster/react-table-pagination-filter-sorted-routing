@@ -11,7 +11,8 @@ import lodash from 'lodash'
 import {useParams} from 'react-router-dom'
 import UserProfile from '../screens/userProfile';
 
-const Users = ({props}) => {
+const Users = ({searchStatus, handleSelectedProf}) => {
+    console.log('searchStatus.length',searchStatus.length)
   const params = useParams()
   const {userId} = params//the same as: userId = match.params.userId
   const pageSize = 4
@@ -41,10 +42,10 @@ const Users = ({props}) => {
         console.log('pageIndx', pageIndex)
         setActivePage(pageIndex)
     }
-    const handleProfessionSelect = (item) => {
-        setSelectedProf(item)
-        console.log('params',item)
-    }
+    // const handleProfessionSelect = (item) => {
+    //     setSelectedProf(item)
+    //     console.log('params',item)
+    // }
     const clearFilter = () => {
         setSelectedProf()
     }
@@ -64,11 +65,22 @@ const Users = ({props}) => {
         console.log('selectedProfession',selectedProfession)
         setActivePage(1)
     },[selectedProfession])
-    const filteredUsersByProf = selectedProfession && selectedProfession._id
+    useEffect(() => {
+        if (searchStatus.length > 0) {
+            setSelectedProf(null)
+        }
+        },[searchStatus])
+    const filteredUsersByProf = selectedProfession && selectedProfession._id// && searchStatus.length
         ? users.filter((user) => user.profession.name === selectedProfession.name)
         : users
-    const count = filteredUsersByProf?.length
-    const usersSorted = lodash.orderBy(filteredUsersByProf, [sortBy.iterator], [sortBy.order])
+    const filteredUsersBySearch = searchStatus && searchStatus.length
+        ? users.filter((user) => user.name.includes(searchStatus))
+        : users
+    const usersFiltered = (selectedProfession) ? filteredUsersByProf : filteredUsersBySearch
+    console.log('usersFiltered',usersFiltered)
+    const count = (selectedProfession && selectedProfession._id) ? filteredUsersByProf?.length : filteredUsersBySearch?.length
+    //const usersSorted = lodash.orderBy(filteredUsersByProf, [sortBy.iterator], [sortBy.order])
+    const usersSorted = lodash.orderBy(usersFiltered, [sortBy.iterator], [sortBy.order])
     const userCrop = paginate(usersSorted, activePage, pageSize)
     const startIndex = (activePage - 1) * pageSize
 
@@ -86,10 +98,16 @@ const Users = ({props}) => {
                 {professions && // if professions exists:
                 <GroupList
                     items={professions}
-                    onItemSelect={handleProfessionSelect}
+                    onItemSelect={(i) => {
+                            console.log('i',i)
+                            setSelectedProf(i)
+                            handleSelectedProf(i)
+                        }
+                    }
                     selected={selectedProfession}
                     valueProperty="_id"
                     activeProperty="name"
+                    //isGroupListSelected={isGroupListSelected}
                     />
                 }
                 <div className="flex-shrink-2">

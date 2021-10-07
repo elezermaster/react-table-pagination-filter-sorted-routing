@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useRef,useEffect,useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Navbar,
@@ -11,39 +11,61 @@ import {
 } from 'react-bootstrap'
 import {Link, NavLink,useLocation} from 'react-router-dom'
 import styled from 'styled-components'
+import {UsersSearchContext} from '../app'
 
-const NavBar = () => {
+const NavBar = ({handleSearchChange,clearSearch}) => {
+    const ctx = useContext(UsersSearchContext)
+    console.log('nav ctx',ctx)
+    //console.log('nav clear', clear)
     const location = useLocation();
     //console.log('loc',location)
-    const [showDropdown, setShowDropdown] = useState(false);
+    //const [showDropdown, setShowDropdown] = useState(false);
     const waitBeforeClose = 1;
-    useEffect(
-        () => {
-            setTimeout(() => {
-                setShowDropdown(prevState => !prevState)
-              }, waitBeforeClose);
-          //const timer1 = setTimeout(() => showDropdown && setShowDropdown(prevState => !prevState), waitBeforeClose * 1000);
-          // this will clear Timeout
-          // when component unmount like in willComponentUnmount
-          // and show will not change to true
-        //   return () => {
-        //     clearTimeout(timer1);
-        //   };
-        },
-        // useEffect will run only one time with empty []
-        // if you pass a value to array,
-        // like this - [data]
-        // than clearTimeout will run every time
-        // this value changes (useEffect re-run)
-        [waitBeforeClose],
-      );
+    const [searchStatus, setSearchStatus] = useState('')
+    const [validated, setValidated] = useState(false);
+    const formRef = useRef(null);
+    if (clearSearch === "") {
+        console.log('clear')
+        //setSearchStatus("")
+        //formRef?.current?.reset();
+        //setValidated(false);
+    }
+    useEffect(() => {
+        formRef?.current?.reset();
+        setValidated(false);
+        return () => {
+            //cleanup
+        }
+    }, [ctx])
+    // const handleChange = (event) => {
+    //     event.preventDefault()
+    //     setSearchStatus(event.target.value)
+    //     //console.log('searchStatus',searchStatus)
+    //     //push search status to parent
+    //     handleSearchChange(searchStatus)
+    // }
+    // useEffect(
+    //     () => {
+    //         setTimeout(() => {
+    //             setShowDropdown(prevState => !prevState)
+    //           }, waitBeforeClose);
+    //       //const timer1 = setTimeout(() => showDropdown && setShowDropdown(prevState => !prevState), waitBeforeClose * 1000);
+    //       // this will clear Timeout
+    //       // when component unmount like in willComponentUnmount
+    //       // and show will not change to true
+    //     //   return () => {
+    //     //     clearTimeout(timer1);
+    //     //   };
+    //     },
+    //     // useEffect will run only one time with empty []
+    //     // if you pass a value to array,
+    //     // like this - [data]
+    //     // than clearTimeout will run every time
+    //     // this value changes (useEffect re-run)
+    //     [waitBeforeClose],
+    //   );
       return (
         <Navbar bg="light" expand="lg">
-<<<<<<< HEAD
-        <Navbar.Brand href="/" style={{marginLeft: 15}}>Fast Company</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{marginRight: 15}}/>
-        <Navbar.Collapse id="navbarScroll">
-=======
         <Navbar.Brand
             to="/"
             style={{marginLeft: 15}}
@@ -53,7 +75,6 @@ const NavBar = () => {
             style={{marginRight: 15}}
             />
         <Navbar.Collapse id="responsive-navbar-nav">
->>>>>>> ee25cd95f91847df0e3b236c13c9b07a14d4a8f7
             <Nav
             className="mr-auto my-2 my-lg-1"
             style={{maxHeight: '100px'}}
@@ -61,19 +82,12 @@ const NavBar = () => {
             >
 
             <Nav.Link exact as={NavLinkStyled} to="/" activeStyle={{color: 'white', textDecoration: 'none'}}>Home</Nav.Link>
-            {/* <Nav.Link
-                exact as={NavLinkStyled}
-                to="/sign-in"
-                activeStyle={{color: 'white', textDecoration: 'none'}}
-                //className="dropdown-menu"
-                >Login
-            </Nav.Link> */}
             <Nav.Link exact as={NavLinkStyled} to="/users" activeStyle={{color: 'white', textDecoration: 'none'}}>Users</Nav.Link>
 
             <NavDropdownStyled
                 //exact="true"
-                onMouseLeave={() => setShowDropdown(false)}
-                onMouseOver={() => setShowDropdown(true)}
+                //onMouseLeave={() => setShowDropdown(false)}
+                //onMouseOver={() => setShowDropdown(true)}
                 //show={showDropdown}
                 title="Login"
                 //onToggle={() => { (location.pathname !== '/sign-in') && (window.location.href = '/sign-in') }}
@@ -92,12 +106,21 @@ const NavBar = () => {
 
             </Nav>
             <Nav className="dropdown-menu-right navbar-right justify-content-end mr-auto my-rg-2" style={{width: "100%" , marginRight: 15}}>
-            <Form className="d-flex justify-content-end mr-auto my-rg-1">
+            <Form
+                noValidate
+                validated={validated}
+                ref={formRef}
+                className="d-flex justify-content-end mr-auto my-rg-1"
+                name="search"
+                >
             <FormControl
                 type="search"
                 placeholder="Search"
                 className="mr-auto"
                 aria-label="Search"
+                onChange={(e) => handleSearchChange(e.target.value)}
+                name="search"
+                defaultValue={ctx}//searchStatus
             />
             <Button variant="outline-success">Search</Button>
             </Form>

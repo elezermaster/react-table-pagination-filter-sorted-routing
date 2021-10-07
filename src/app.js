@@ -1,28 +1,49 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Users from './components/users'
 import NavBar from './components/navBar';
 import {BrowserRouter,Redirect,Route,Switch,Link, NavLink} from 'react-router-dom'
 import Home from './screens/home'
 import PageNotFound from './screens/pageNotFound'
-<<<<<<< HEAD
-import LoginForm from './components/loginForm'
-import SignUpForm from './components/signupForm'
-=======
 import LoginForm from './screens/loginForm'
 import SignUpForm from './screens/signupForm'
->>>>>>> ee25cd95f91847df0e3b236c13c9b07a14d4a8f7
 
+export const UsersSearchContext = React.createContext()
 function App() {
+  const [searchStatus,setSearchStatus] = useState('')
+  const [clearSearch, setClearSearch] = useState('')
+  const handleSelectedProf = (item) => {
+    //if (item) {
+      console.log('item in app',item)
+      setClearSearch('')
+      setSearchStatus("")
+      handleSearchChange("")
+    //}
+  }
+  const handleSearchChange = (searchString) => {
+    setSearchStatus(searchString)
+    //console.log('searchString',searchString)
+  }
+  useEffect(() => {
+    console.log('effect for cleaning search',searchStatus)
+    setClearSearch('')
+    //setSearchStatus("")
+  },[handleSelectedProf])
+
+  // const isGroupListSelected = (val) => {
+  //   console.log('val', val)
+  // }
+  //const isGroupListSelected
   return (
     <div className="App">
+      <UsersSearchContext.Provider value={searchStatus} clear={clearSearch}>
       <BrowserRouter>
-      <NavBar/>
+      <NavBar handleSearchChange={handleSearchChange} clearSearch={clearSearch}/>
       <Switch>
         <Route
           exact
           path="/users/:userId?"
           render={(props) => {
-            return true && <Users isAdmin={false} {...props}/>
+            return true && <Users searchStatus={searchStatus} handleSelectedProf={handleSelectedProf} {...props}/>
           }}
         />
         <Route
@@ -41,6 +62,7 @@ function App() {
         <Redirect to="/404"/>
         </Switch>
       </BrowserRouter>
+      </UsersSearchContext.Provider>
     </div>
   );
 }

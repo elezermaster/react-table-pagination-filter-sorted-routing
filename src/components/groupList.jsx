@@ -2,18 +2,18 @@ import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 import PropTypes from 'prop-types'; // ES6
 
-const GroupList = ({items,valueProperty,activeProperty,onItemSelect,selected}) => {
+const GroupList = ({items,valueProperty,activeProperty,onItemSelect,selected,isGroupListSelected}) => {
     const groupListItems = Object.keys(items).map((item,index) => {
-        let isSelected = ''
+        let isGroupListSelected = ''
         if (selected) {
-            isSelected = items[item].name === selected.name ? 'active' : ''
+            isGroupListSelected = items[item].name === selected.name ? 'active' : ''
         }
         return (
             <ListGroup.Item
                 key={index}//items[item][valueProperty]
                 as="li"
                 onClick={() => onItemSelect(items[item])}
-                className={isSelected}
+                className={isGroupListSelected}
                 >{items[item][activeProperty]}</ListGroup.Item>)
     })
     return (

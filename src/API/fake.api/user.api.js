@@ -31,7 +31,7 @@ export const qualities = {
 export const users = [
   {
     _id: "67rdca3eeb7f6fgeed471815",
-    name: "Джон Дориан",
+    name: "John Dorian",
     profession: professions.doctor,
     qualities: [qualities.tedious, qualities.uncertain, qualities.strange],
     completedMeetings: 36,
@@ -40,7 +40,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471816",
-    name: "Кокс",
+    name: "Kuks",
     profession: professions.doctor,
     qualities: [qualities.buller, qualities.handsome, qualities.alcoholic],
     completedMeetings: 15,
@@ -49,7 +49,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471817",
-    name: "Боб Келсо",
+    name: "Bob Celso",
     profession: professions.doctor,
     qualities: [qualities.buller],
     completedMeetings: 247,
@@ -58,7 +58,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471818",
-    name: "Рэйчел Грин",
+    name: "Rachel Grin",
     profession: professions.waiter,
     qualities: [qualities.uncertain],
     completedMeetings: 148,
@@ -67,7 +67,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471819",
-    name: "Шелдон Купер",
+    name: "Sheldon Kuper",
     profession: professions.physics,
     qualities: [qualities.strange, qualities.tedious],
     completedMeetings: 37,
@@ -76,7 +76,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471820",
-    name: "Леонард Хофстедтер",
+    name: "Leonardo Hofsted",
     profession: professions.physics,
     qualities: [qualities.strange, qualities.uncertain],
     completedMeetings: 147,
@@ -85,7 +85,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471821",
-    name: "Говард Воловиц",
+    name: "Hovard Horovich",
     profession: professions.engineer,
     qualities: [qualities.strange, qualities.tedious],
     completedMeetings: 72,
@@ -94,7 +94,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471822",
-    name: "Никола Тесла",
+    name: "Nikola Tesla",
     profession: professions.engineer,
     qualities: [qualities.handsome],
     completedMeetings: 72,
@@ -103,7 +103,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471823",
-    name: "Моника Геллер",
+    name: "Monica Heller",
     profession: professions.cook,
     qualities: [qualities.strange, qualities.uncertain],
     completedMeetings: 17,
@@ -112,7 +112,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed471824",
-    name: "Рататуй",
+    name: "Rachel Hoffer",
     profession: professions.cook,
     qualities: [qualities.handsome, qualities.buller],
     completedMeetings: 17,
@@ -121,7 +121,7 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed47181f",
-    name: "Джоуи Триббиани",
+    name: "John Tribanni",
     profession: professions.actor,
     qualities: [qualities.uncertain, qualities.strange],
     completedMeetings: 434,
@@ -130,11 +130,29 @@ export const users = [
   },
   {
     _id: "67rdca3eeb7f6fgeed47181r",
-    name: "Брэд Питт",
+    name: "Bred Pitt",
     profession: professions.actor,
     qualities: [qualities.handsome],
     completedMeetings: 434,
     rate: 5,
+    bookmark: false,
+  },
+  {
+    _id: "67rdca3eeb7f6fgeed471341",
+    name: "Monica Blumper",
+    profession: professions.cook,
+    qualities: [qualities.strange, qualities.uncertain, qualities.buller],
+    completedMeetings: 12,
+    rate: 4.2,
+    bookmark: false,
+  },
+  {
+    _id: "67rdca3eeb7f6fgeed471846",
+    name: "Rachel Kim",
+    profession: professions.actor,
+    qualities: [qualities.handsome, qualities.buller],
+    completedMeetings: 10,
+    rate: 4.9,
     bookmark: false,
   },
 ];

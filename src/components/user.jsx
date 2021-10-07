@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
 const User = ({user, index, onDelete, onToggleBookmark}) => {
-  console.log("user.qualities",user.qualities)
+  //console.log("user.qualities",user.qualities)
   return (
     <tr key={user._id}>
       <td>{index}</td>
