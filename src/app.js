@@ -10,40 +10,27 @@ import SignUpForm from './screens/signupForm'
 export const UsersSearchContext = React.createContext()
 function App() {
   const [searchStatus,setSearchStatus] = useState('')
-  const [clearSearch, setClearSearch] = useState('')
   const handleSelectedProf = (item) => {
-    //if (item) {
       console.log('item in app',item)
-      setClearSearch('')
       setSearchStatus("")
       handleSearchChange("")
-    //}
   }
   const handleSearchChange = (searchString) => {
     setSearchStatus(searchString)
     //console.log('searchString',searchString)
   }
-  useEffect(() => {
-    console.log('effect for cleaning search',searchStatus)
-    setClearSearch('')
-    //setSearchStatus("")
-  },[handleSelectedProf])
 
-  // const isGroupListSelected = (val) => {
-  //   console.log('val', val)
-  // }
-  //const isGroupListSelected
   return (
     <div className="App">
-      <UsersSearchContext.Provider value={searchStatus} clear={clearSearch}>
+      <UsersSearchContext.Provider value={searchStatus} >
       <BrowserRouter>
-      <NavBar handleSearchChange={handleSearchChange} clearSearch={clearSearch}/>
+      <NavBar handleSearchChange={handleSearchChange}/>
       <Switch>
         <Route
           exact
           path="/users/:userId?"
           render={(props) => {
-            return true && <Users searchStatus={searchStatus} handleSelectedProf={handleSelectedProf} {...props}/>
+            return <Users searchStatus={searchStatus} handleSelectedProf={handleSelectedProf} {...props}/>
           }}
         />
         <Route

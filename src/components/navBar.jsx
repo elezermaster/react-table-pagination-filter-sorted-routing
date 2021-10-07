@@ -13,23 +13,11 @@ import {Link, NavLink,useLocation} from 'react-router-dom'
 import styled from 'styled-components'
 import {UsersSearchContext} from '../app'
 
-const NavBar = ({handleSearchChange,clearSearch}) => {
+const NavBar = ({handleSearchChange}) => {
     const ctx = useContext(UsersSearchContext)
     console.log('nav ctx',ctx)
-    //console.log('nav clear', clear)
-    const location = useLocation();
-    //console.log('loc',location)
-    //const [showDropdown, setShowDropdown] = useState(false);
-    const waitBeforeClose = 1;
-    const [searchStatus, setSearchStatus] = useState('')
     const [validated, setValidated] = useState(false);
     const formRef = useRef(null);
-    if (clearSearch === "") {
-        console.log('clear')
-        //setSearchStatus("")
-        //formRef?.current?.reset();
-        //setValidated(false);
-    }
     useEffect(() => {
         formRef?.current?.reset();
         setValidated(false);
@@ -37,33 +25,7 @@ const NavBar = ({handleSearchChange,clearSearch}) => {
             //cleanup
         }
     }, [ctx])
-    // const handleChange = (event) => {
-    //     event.preventDefault()
-    //     setSearchStatus(event.target.value)
-    //     //console.log('searchStatus',searchStatus)
-    //     //push search status to parent
-    //     handleSearchChange(searchStatus)
-    // }
-    // useEffect(
-    //     () => {
-    //         setTimeout(() => {
-    //             setShowDropdown(prevState => !prevState)
-    //           }, waitBeforeClose);
-    //       //const timer1 = setTimeout(() => showDropdown && setShowDropdown(prevState => !prevState), waitBeforeClose * 1000);
-    //       // this will clear Timeout
-    //       // when component unmount like in willComponentUnmount
-    //       // and show will not change to true
-    //     //   return () => {
-    //     //     clearTimeout(timer1);
-    //     //   };
-    //     },
-    //     // useEffect will run only one time with empty []
-    //     // if you pass a value to array,
-    //     // like this - [data]
-    //     // than clearTimeout will run every time
-    //     // this value changes (useEffect re-run)
-    //     [waitBeforeClose],
-    //   );
+
       return (
         <Navbar bg="light" expand="lg">
         <Navbar.Brand
@@ -85,14 +47,7 @@ const NavBar = ({handleSearchChange,clearSearch}) => {
             <Nav.Link exact as={NavLinkStyled} to="/users" activeStyle={{color: 'white', textDecoration: 'none'}}>Users</Nav.Link>
 
             <NavDropdownStyled
-                //exact="true"
-                //onMouseLeave={() => setShowDropdown(false)}
-                //onMouseOver={() => setShowDropdown(true)}
-                //show={showDropdown}
                 title="Login"
-                //onToggle={() => { (location.pathname !== '/sign-in') && (window.location.href = '/sign-in') }}
-                //as={NavItem}
-                //as={Link} to="/sign-in"
                 id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/sign-in" to="/sign-in" as={Link}>
                     Sign In

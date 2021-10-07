@@ -68,9 +68,9 @@ const Users = ({searchStatus, handleSelectedProf}) => {
     useEffect(() => {
         if (searchStatus.length > 0) {
             setSelectedProf(null)
-        }
+        }//clear group professions selected
         },[searchStatus])
-    const filteredUsersByProf = selectedProfession && selectedProfession._id// && searchStatus.length
+    const filteredUsersByProf = selectedProfession && selectedProfession._id
         ? users.filter((user) => user.profession.name === selectedProfession.name)
         : users
     const filteredUsersBySearch = searchStatus && searchStatus.length
@@ -101,13 +101,12 @@ const Users = ({searchStatus, handleSelectedProf}) => {
                     onItemSelect={(i) => {
                             console.log('i',i)
                             setSelectedProf(i)
-                            handleSelectedProf(i)
+                            handleSelectedProf(i)//pop to global ctx
                         }
                     }
                     selected={selectedProfession}
                     valueProperty="_id"
                     activeProperty="name"
-                    //isGroupListSelected={isGroupListSelected}
                     />
                 }
                 <div className="flex-shrink-2">
