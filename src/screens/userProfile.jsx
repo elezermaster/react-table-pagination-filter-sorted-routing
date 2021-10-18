@@ -36,7 +36,35 @@ const UserProfile = ({id, users}) => {
                             size="lg"
                             className="mt-2"
                             variant="secondary"
-                        >all users</Button>
+                        >back to all users</Button>
+                        </div>
+                    </Link>
+                    <Link
+                        to={{
+                            pathname: `/sign-in/edit/${id}`,
+                            state: {
+                                name: user.name,
+                                professionId: user.profession._id,
+                                professionname: user.profession.name,
+                                qualities: user.qualities,
+                            },
+                            //query:{thing: 'asdf', another1: 'stuff'}
+                        }}
+                        style={{
+                            color: 'white',
+                            textDecoration: 'none',
+                            fontSize: 20,
+                            borderRadius: 8,
+                            fontStyle: 'bold',
+                            alignItems: 'center',
+                            }}
+                        >
+                        <div className="flex-shrink-2">
+                        <Button
+                            size="lg"
+                            className="mt-2"
+                            variant="secondary"
+                        >edit user</Button>
                         </div>
                     </Link>
                 </div>

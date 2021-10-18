@@ -1,3 +1,5 @@
+import lodash from 'lodash'
+
 export const validator = (data, config) => {
     const errors = {}
     function validate(
@@ -5,10 +7,20 @@ export const validator = (data, config) => {
         data,
         config,
     ) {
+        console.log('data',data)
+        console.log('config',config)
         let statusValidate;
         switch (validateMethod) {
             case "isRequired":
-                statusValidate = data.trim() === ""
+                if (typeof data === 'string' || data == null) {
+                    console.log("data typeof string", data)
+                    statusValidate = (data.trim() === "" || data.length === 0)
+                } else if (Array.isArray(data)) {
+                    console.log("data typeof array", data)
+                    statusValidate = (data.length === 0)
+                } else {
+                    console.log("another data typeof array", data)
+                }
                 break;
             case "isEmail": {
                 const emailRegExp = /^\S+@\S+\.\S+$/g
@@ -27,6 +39,10 @@ export const validator = (data, config) => {
             }
             case "isPasswordHasMinimalLength": {
                 statusValidate = data.length < config.value
+                break;
+            }
+            case "isEqualToPassword": {
+                statusValidate = !(lodash.isEqual(config.compareFrom, config.compareTo))
                 break;
             }
             default:

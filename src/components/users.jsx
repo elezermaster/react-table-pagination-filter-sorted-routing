@@ -74,7 +74,7 @@ const Users = ({searchStatus, handleSelectedProf}) => {
         ? users.filter((user) => user.profession.name === selectedProfession.name)
         : users
     const filteredUsersBySearch = searchStatus && searchStatus.length
-        ? users.filter((user) => user.name.includes(searchStatus))
+        ? users.filter((user) => user.name.toLowerCase().includes(searchStatus.toLowerCase()))
         : users
     const usersFiltered = (selectedProfession) ? filteredUsersByProf : filteredUsersBySearch
     console.log('usersFiltered',usersFiltered)

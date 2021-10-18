@@ -45,19 +45,20 @@ const NavBar = ({handleSearchChange}) => {
 
             <Nav.Link exact as={NavLinkStyled} to="/" activeStyle={{color: 'white', textDecoration: 'none'}}>Home</Nav.Link>
             <Nav.Link exact as={NavLinkStyled} to="/users" activeStyle={{color: 'white', textDecoration: 'none'}}>Users</Nav.Link>
+            <Nav.Link exact as={NavLinkStyled} to="/sign-in" activeStyle={{color: 'white', textDecoration: 'none'}}>Login</Nav.Link>
 
-            <NavDropdownStyled
+            {/* <NavDropdownStyled
                 title="Login"
                 id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/sign-in" to="/sign-in" as={Link}>
                     Sign In
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/sign-up" to="/sign-up" as={Link}>
+                <NavDropdown.Item href="/sign-in/register" to="/sign-in/register" as={Link}>
                     Sign Up
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">Exit</NavDropdown.Item>
-            </NavDropdownStyled>
+            </NavDropdownStyled> */}
 
             </Nav>
             <Nav className="dropdown-menu-right navbar-right justify-content-end mr-auto my-rg-2" style={{width: "100%" , marginRight: 15}}>

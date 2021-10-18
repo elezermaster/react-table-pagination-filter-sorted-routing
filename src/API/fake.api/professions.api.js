@@ -14,11 +14,26 @@ export const professions = [
   {_id: "67rdca3eeb7f6fgeed471824", name: "Актер"},
   {_id: "67rdca3eeb7f6fgeed471829", name: "Повар"},
 ];
+if (!localStorage.getItem("professions")) {
+  localStorage.setItem("professions", JSON.stringify(professions));
+}
 
 const fetchAllProfessions = () => new Promise((resolve) => {
        window.setTimeout(function() {
           resolve(professions)
         },2000)
     })
-
-export default {fetchAllProfessions}
+const getProfessionIdByName = (name) =>
+    new Promise((resolve) => {
+        window.setTimeout(function() {
+            resolve(
+                JSON.parse(localStorage.getItem("professions")).find(
+                    (prof) => prof.name === name,
+                ),
+            );
+        }, 1000);
+    });
+export default {
+  fetchAllProfessions,
+  getProfessionIdByName,
+}

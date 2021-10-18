@@ -6,6 +6,7 @@ import Home from './screens/home'
 import PageNotFound from './screens/pageNotFound'
 import LoginForm from './screens/loginForm'
 import SignUpForm from './screens/signupForm'
+import './index.css'
 
 export const UsersSearchContext = React.createContext()
 function App() {
@@ -21,7 +22,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App container">
       <UsersSearchContext.Provider value={searchStatus} >
       <BrowserRouter>
       <NavBar handleSearchChange={handleSearchChange}/>
@@ -38,8 +39,8 @@ function App() {
           path="/"
           component={Home}
         />
-        <Route exact path="/sign-in" component={LoginForm} />
-        <Route exact path="/sign-up" component={SignUpForm} />
+        <Route exact path="/sign-in/:type?/:id?" component={LoginForm} />
+        {/* <Route exact path="/sign-in/:type?" component={SignUpForm} /> */}
         <Route
           exact
           path="/404"

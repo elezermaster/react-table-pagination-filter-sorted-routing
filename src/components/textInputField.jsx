@@ -13,11 +13,16 @@ const textInputField = ({
     parentClassName,
     id,
     error,
+    defaultValue,
 }) => {
+    console.log(`error in text field ${name}:`,error)
+    const handleChange = ({target}) => {
+        onChange({name: target.name, value: target.value})
+    }
     const getInputClasses = () => {
-        return "form-control" +
-        (error ? " is-invalid" : "")// +
-        //(type === "password" ? " border-right-0" : "")
+        return "form-control border-secondary border-1 " +
+        (error ? " is-invalid border-danger " : "") +
+        (type === "password" ? " border-end-0 " : "")
     }
     const [showPassword, setShowPassword] = useState(false)
     const toggleShowPassword = () => {
@@ -27,21 +32,22 @@ const textInputField = ({
         <div className={
             (parentClassName || "form-group") &&
             (error && "error")} >
-            <label htmlFor={name}>{label}</label>
+            <label className="mt-2" htmlFor={name}>{label}</label>
             <div className="input-group">
             <input
                 type={showPassword ? "text" : type}
                 className={className || getInputClasses()}
                 id={id}
                 name={name}
-                value={value}
-                onChange={onChange}
+                //value={value}
+                defaultValue={defaultValue}
+                onChange={handleChange}
                 placeholder={placeholder}
             />
-            {type === "password" && error &&
+            {type === "password" && ///error &&
                     <div
                         onClick={toggleShowPassword}
-                        className="btn btn-outline border-left-0 border-danger error">
+                        className={`btn btn-outline border-left-0 border-start-0 border-1 border-${error ? "danger" : "secondary"}`}>
                         {showPassword
                             ? <FaRegEyeSlash color={error ? "red" : "grey"}/>
                             : <FaRegEye color={error ? "red" : "grey"}/>
