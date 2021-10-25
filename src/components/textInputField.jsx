@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
 
@@ -28,6 +28,10 @@ const textInputField = ({
     const toggleShowPassword = () => {
         setShowPassword(prevState => !prevState)
     }
+    useEffect(() => {
+        onChange({name: name,value: defaultValue})
+            console.log('selected text field setted :',defaultValue)
+        },[defaultValue])
     return (
         <div className={
             (parentClassName || "form-group") &&

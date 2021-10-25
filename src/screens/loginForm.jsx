@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import '../screens/login.css'
-import {Link,useParams,useLocation} from 'react-router-dom'
+import {Link,useParams,useLocation,useHistory} from 'react-router-dom'
 import TextInputField from '../components/textInputField';
 import {validator} from '../utils/validator'
 import {Form,Select} from 'react-bootstrap'
@@ -11,12 +11,13 @@ import MultiSelectField from '../components/multiSelect'
 import FormSelectField from '../components/formSelectField';
 
 const LoginForm = () => {
+    const history = useHistory();
     const {type,id} = useParams()
     const location = useLocation();
     //console.log(location.state);
     // name: user.name,
     // professionId: user.profession._id,
-    // professionname: user.profession.name,
+    // professionName: user.profession.name,
     // qualities: user.qualities,
     const user = location.state
     // useEffect(() => {
@@ -28,8 +29,8 @@ const LoginForm = () => {
     //         //console.log('user edit :',userToEdit)
     //     },[location])
     console.log('user params',user)
-    console.log('user q:',user?.qualities)
-    console.log('type params',type)
+    //console.log('user q:',user?.qualities)
+    //console.log('type params',type)
     // const [userToEdit, setUserToEdit] = useState({})
     const [formType, setFormType] = useState(type)//"register" ? "login" ? "edit"
     const [data, setData] = useState({
@@ -62,18 +63,51 @@ const LoginForm = () => {
             [target.name]: target.value,
         }))
     }
+    const getProfessionById = (id) => {
+        let getProfession = null
+        Object.keys(professions).forEach(prof => {
+            if (professions[prof]._id === id) {
+                //console.log('find prof',professions[prof])
+                getProfession = professions[prof]
+            }
+        })
+        return getProfession
+    }
+    const funcRedirect = () => {
+        history.push(`/users/${id}`)// <Link to={`/users/${id}`}>
+    }
     const handleSubmit = e => {
         e.preventDefault()
         const isValid = validate()
-        if (!isValid) return
-        console.log("handleSubmit data",data)
-        //update = (id, data)
-        //useEffect(() => {
+        const [isValidSubmit, isEditValid] = validate()
+        const professionUpdated = getProfessionById(data.profession)
+        console.log('professionUpdated',professionUpdated)
+        data.profession = professionUpdated
+        console.log('data before submit', data)
+        const qualitiesUpdated = data.qualitie.map(q => {
+            return {_id: q.value, name: q.label, color: q.color}
+        })
+        console.log('qualities before submit', qualitiesUpdated)
+        // setData(prevState => ({
+        //     ...prevState,
+        //     qualities: qualitiesUpdated,
+        // }))
+        data.qualities = qualitiesUpdated
+        //data.sex =
+        console.log('all data before submit', data)
+        setData(data)
+
+        if (isEditValid) {
             api.users.update(id,data)
                 .then(data => console.log('data updated on local',data),
                     //console.log('data updated',JSON.parse(localStorage.getItem("users")).find((user) => user._id === id,))
                 )
-         //   },[])
+        }
+        funcRedirect()
+        // if (!isValid) {
+        //     console.log("is submit valid",isValid)
+        //     return;
+        // }
     }
     useEffect(() => {
         console.log('data changed effect', data)
@@ -139,9 +173,12 @@ const LoginForm = () => {
     }
     const validate = () => {
         const errors = validator(data,validatorConfig)
+        console.log('errors',errors)
         setErrors(errors)
+        console.log('Object.keys(errors).length',Object.keys(errors).length)
         isValidSubmit = Object.keys(errors).length === 0
-        return (isValidSubmit)
+        const isEditValid = Object.keys(errors).length === 2
+        return ([isValidSubmit, isEditValid])
     }
     useEffect(() => {
         api.professions.fetchAllProfessions()
@@ -194,7 +231,7 @@ const LoginForm = () => {
             label="Email address"
             type="email"
             name="email"
-            value={user?.email || data.email}
+            defaultValue={user && user.email}// || data.email
             onChange={handleChange}
             placeholder="Enter email"
             //parentClassName="form-group"
@@ -239,7 +276,7 @@ const LoginForm = () => {
             name="profession"
             onChange={handleChange}
             professions={professions}
-            selected={user?.professionId}
+            selected={user}
         />
         {/* <Form.Select
             defaultValue={data.profession}
@@ -277,6 +314,7 @@ const LoginForm = () => {
             onChange={handleChange}
             value={user?.sex || data.sex}
             label="Choose Gender"
+            selected={user && user?.sex}
         >
         </RadioBtnField>
         }
@@ -301,6 +339,7 @@ const LoginForm = () => {
                 value={user?.qualities || data.qualitie}//user.qualities
                 //defaultValue={data.qualitie}
                 label="Choose your qualities"
+                selected={user?.qualities }
                 />
                 {errors && Object.keys(errors).length !== 0 && errors.qualitie &&
                     <span className="help-block error text-danger">{errors.qualitie}</span>}
@@ -327,12 +366,24 @@ const LoginForm = () => {
                 </div>
             </div>
         }
+        {/* Submit Button */}
+        {(formType === "edit")
+        ? <button
+                    type="submit"
+                    className="btn btn-primary btn-block login-btn"
+                    disabled={false}
+                    >Submit Edit
+        </button>
+        : <Link to={`users/`}>
+                <button
+                    type="submit"
+                    className="btn btn-primary btn-block login-btn"
+                    disabled={false}
+                    >Submit
+                </button>
+            </Link>
+        }
 
-        <button
-            type="submit"
-            className="btn btn-primary btn-block login-btn"
-            disabled={false}
-            >Submit</button>
         {(formType === "login") && <p className="forgot-password text-right">
             Forgot <a href="#">password?</a>
         </p>}

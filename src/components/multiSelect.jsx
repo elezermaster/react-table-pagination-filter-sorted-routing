@@ -5,10 +5,22 @@ import makeAnimated from 'react-select/animated';
 import styled from 'styled-components'
 
 const animatedComponents = makeAnimated();
-const MultiSelect = ({options,onChange,name,label,value}) => {
+const MultiSelect = ({options,onChange,name,label,value,selected}) => {
+    const defaultValuesSelected = Object.keys(selected).map(qualitie => ({
+        label: value[qualitie].name,
+        value: value[qualitie]._id,
+        color: value[qualitie].color,
+        }),
+        )
+    useEffect(() => {
+        onChange({name: name,value: defaultValuesSelected})
+            console.log('selected multi qualitie setted :',selected)
+            console.log('selected multi defaultValuesSelected setted :',defaultValuesSelected)
+        },[selected])
     const defaultValues = Object.keys(value).map(qualitie => ({
         label: value[qualitie].name,
         value: value[qualitie]._id,
+        color: value[qualitie].color,
         }),
         )
     console.log('defaultValues',defaultValues)
@@ -17,7 +29,7 @@ const MultiSelect = ({options,onChange,name,label,value}) => {
     ? Object.keys(options).map(qualitie => ({
         label: options[qualitie].name,
         value: options[qualitie]._id,
-        //color: options[qualitie].color,
+        color: options[qualitie].color,
         }),
         )
     : options
@@ -50,6 +62,7 @@ const MultiSelect = ({options,onChange,name,label,value}) => {
             borderColor: "#000000",
         }}
         className=" border-secondary border-1 "
+        //color={}
       />
     );
 };

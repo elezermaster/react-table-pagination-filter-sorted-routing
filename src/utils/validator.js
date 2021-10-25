@@ -7,14 +7,14 @@ export const validator = (data, config) => {
         data,
         config,
     ) {
-        console.log('data',data)
-        console.log('config',config)
+        //console.log('data',data)
+        //console.log('config',config)
         let statusValidate;
         switch (validateMethod) {
             case "isRequired":
                 if (typeof data === 'string' || data == null) {
                     console.log("data typeof string", data)
-                    statusValidate = (data.trim() === "" || data.length === 0)
+                    statusValidate = (data?.trim() === "" || data?.length === 0)
                 } else if (Array.isArray(data)) {
                     console.log("data typeof array", data)
                     statusValidate = (data.length === 0)

@@ -11,26 +11,26 @@ const User = ({user, index, onDelete, onToggleBookmark}) => {
     <tr key={user._id}>
       <td>{index}</td>
       <td>
-        <Link to={`users/${user._id}`}>
-          {user.name}
+        <Link to={`users/${user?._id}`}>
+          {user?.name}
         </Link>
       </td>
       {/*<td>{listQualities(user.qualities)}</td> */}
       <td>
-        <Qualitie qualities={Object.assign({}, user.qualities)} />
+        <Qualitie qualities={Object.assign({}, user?.qualities)} />
       </td>
-      <td>{user.profession.name}</td>
-      <td>{user.completedMeetings}</td>
-      <td>{user.rate}</td>
+      <td>{user?.profession?.name}</td>
+      <td>{user?.completedMeetings}</td>
+      <td>{user?.rate}</td>
       <td>
-        <Button variant="light" onClick={() => onToggleBookmark(user._id)}>
+        <Button variant="light" onClick={() => onToggleBookmark(user?._id)}>
           {/* {user.favorites?<FaBookmark/>:<FaRegBookmark/>} */}
-          <Bookmark status={user.bookmark} />
+          <Bookmark status={user?.bookmark} />
         </Button>
       </td>
       <td>
         {
-          <Button variant="warning" onClick={() => onDelete(user._id)}>
+          <Button variant="warning" onClick={() => onDelete(user?._id)}>
             Delete
           </Button>
         }

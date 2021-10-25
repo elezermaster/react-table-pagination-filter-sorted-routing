@@ -72,13 +72,13 @@ const NavBar = ({handleSearchChange}) => {
             <FormControl
                 type="search"
                 placeholder="Search"
-                className="mr-auto"
+                className="mr-1"
                 aria-label="Search"
                 onChange={(e) => handleSearchChange(e.target.value)}
                 name="search"
                 defaultValue={ctx}//searchStatus
             />
-            <Button variant="outline-success">Search</Button>
+            <Button className="ml-2" variant="outline-success">Search</Button>
             </Form>
             </Nav>
         </Navbar.Collapse>
