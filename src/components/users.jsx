@@ -12,7 +12,6 @@ import {useParams} from 'react-router-dom'
 import UserProfile from '../screens/userProfile';
 
 const Users = ({searchStatus, handleSelectedProf}) => {
-    console.log('searchStatus.length',searchStatus.length)
   const params = useParams()
   const {userId} = params//the same as: userId = match.params.userId
   const pageSize = 4
@@ -25,7 +24,6 @@ const Users = ({searchStatus, handleSelectedProf}) => {
     api.users.fetchAll()
         .then(data => {
           setUsers(data)
-          console.log("data",data)
         })
     },[])
   const handleDelete = (userId) => {
@@ -39,7 +37,6 @@ const Users = ({searchStatus, handleSelectedProf}) => {
       setUsers(newStateUsers)
   }
     const handlePageChange = (pageIndex) => {
-        console.log('pageIndx', pageIndex)
         setActivePage(pageIndex)
     }
     // const handleProfessionSelect = (item) => {
@@ -55,14 +52,13 @@ const Users = ({searchStatus, handleSelectedProf}) => {
     api.professions.fetchAllProfessions()
         .then(data => setProfession(Object.assign(data,{allPofession: {name: "all professions"} })))
     //2.изменяется
-    console.log('change')
+    //console.log('change')
     //3.удаляется
     return () => { //вызывается при удалении компонента
-        console.log('unmount')
+        //console.log('unmount')
     }
     },[])//параметер за которым необходимо наблюдать
     useEffect(() => {
-        console.log('selectedProfession',selectedProfession)
         setActivePage(1)
     },[selectedProfession])
     useEffect(() => {
@@ -77,7 +73,6 @@ const Users = ({searchStatus, handleSelectedProf}) => {
         ? users.filter((user) => user.name.toLowerCase().includes(searchStatus.toLowerCase()))
         : users
     const usersFiltered = (selectedProfession) ? filteredUsersByProf : filteredUsersBySearch
-    console.log('usersFiltered',usersFiltered)
     const count = (selectedProfession && selectedProfession._id) ? filteredUsersByProf?.length : filteredUsersBySearch?.length
     //const usersSorted = lodash.orderBy(filteredUsersByProf, [sortBy.iterator], [sortBy.order])
     const usersSorted = lodash.orderBy(usersFiltered, [sortBy.iterator], [sortBy.order])

@@ -17,36 +17,7 @@ const Comments = ({comments,onDeletePost}) => {
             const userById = allUsers?.find(user => user._id === id);
             return userById?.name
         }
-        // const handleDeletePost = (id) => {
-        //     console.log('id post to  delete',id)
-        // }
-        // const [userAuthor, setUserAuthor] = useState()
-        // const getUserAuthorById = (id) => {
-        //     //useEffect(() => {
-        //     let userAuthor = ""
-        //         api.users.getById(id)
-        //             .then(data => {
-        //                 //return data.name
-        //                 userAuthor = data.name
-        //                 //setUserAuthor(data)
-        //               //console.log("author",data)
-        //             })
-        //         //},[])
-        //     return userAuthor
-        // }
-    // let udaptedComments = []
-    // useEffect(() => {
-    //     udaptedComments = comments.map(c => {
-    //     return ({
-    //             _id: c._id,
-    //             userName: getUserAuthorById(c.userId),
-    //             userId: c.userId,//TODO: cannot get user by name
-    //             created_at: c.created_at,
-    //             content: c.content,
-    //         })
-    //    })
-    //    setUserAuthor(udaptedComments)
-    // },[setUserAuthor])
+
     return (
         <>
            {comments &&
@@ -87,7 +58,6 @@ const Comments = ({comments,onDeletePost}) => {
                                                         </p>
                                                         <button
                                                             onClick={() => onDeletePost(c?._id)}
-                                                            //onClick={handleDeletePost}
                                                             className="
                                                                 btn btn-sm
                                                                 text-primary

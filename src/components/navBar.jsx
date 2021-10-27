@@ -45,7 +45,7 @@ const NavBar = ({handleSearchChange}) => {
 
             <Nav.Link exact as={NavLinkStyled} to="/" activeStyle={{color: 'white', textDecoration: 'none'}}>Home</Nav.Link>
             <Nav.Link exact as={NavLinkStyled} to="/users" activeStyle={{color: 'white', textDecoration: 'none'}}>Users</Nav.Link>
-            <Nav.Link exact as={NavLinkStyled} to="/sign-in" activeStyle={{color: 'white', textDecoration: 'none'}}>Login</Nav.Link>
+            <Nav.Link exact as={NavLinkStyled} to="/login" activeStyle={{color: 'white', textDecoration: 'none'}}>Login</Nav.Link>
 
             {/* <NavDropdownStyled
                 title="Login"

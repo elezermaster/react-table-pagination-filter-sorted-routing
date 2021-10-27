@@ -7,19 +7,16 @@ export const validator = (data, config) => {
         data,
         config,
     ) {
-        //console.log('data',data)
-        //console.log('config',config)
         let statusValidate;
         switch (validateMethod) {
             case "isRequired":
                 if (typeof data === 'string' || data == null) {
-                    console.log("data typeof string", data)
-                    statusValidate = (data?.trim() === "" || data?.length === 0)
+                    statusValidate = (data?.trim() === "" || data?.length === 0 || data === undefined)
                 } else if (Array.isArray(data)) {
-                    console.log("data typeof array", data)
+                    //console.log("data typeof array", data)
                     statusValidate = (data.length === 0)
                 } else {
-                    console.log("another data typeof array", data)
+                    //console.log("another data typeof array", data)
                 }
                 break;
             case "isEmail": {
@@ -38,7 +35,7 @@ export const validator = (data, config) => {
                 break;
             }
             case "isPasswordHasMinimalLength": {
-                statusValidate = data.length < config.value
+                statusValidate = data?.length < config.value
                 break;
             }
             case "isEqualToPassword": {
@@ -58,7 +55,7 @@ export const validator = (data, config) => {
                 data[fieldName],
                 config[fieldName][validateMethod],
             )
-            if (error && !errors[fieldName]) {
+            if (error && !errors[fieldName]) { //only the first error message to show
                 errors[fieldName] = error
             }
         }

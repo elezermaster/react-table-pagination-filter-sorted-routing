@@ -15,7 +15,6 @@ const UserProfile = ({id, users}) => {
         api.users.getById(id)
             .then(data => {
               setUser(data)
-              console.log("dataUsrProfile",data)
             })
         },[users])
     const setRandomAvatar = () => {
@@ -43,8 +42,6 @@ const UserProfile = ({id, users}) => {
         api.comments.fetchCommentsForUser(id)
             .then(data => {
                 setComments(data)
-                console.log("comments for user",id)
-                console.log("comments data",data)
             })
         },[])
         //its about users and not professions just name mistake
@@ -53,24 +50,16 @@ const UserProfile = ({id, users}) => {
         api.users.fetchAll()
             .then(data => {
                 setProfessions(data)
-                console.log("users data",data)
             })
         },[setProfessions])
     const [selectedProfession, setSelectedProfession] = useState(null)
     const handleSelectProfession = (e) => {
-        console.log('selected prof value', e.target.value)
-        console.log('selected prof id', e.target)
         const select = e.target;
         const selectedProfessionName = select.options[select.selectedIndex].text;
         const selectedId = select.options[select.selectedIndex].id;
         setSelectedProfession({_id: selectedId,name: selectedProfessionName})
-        console.log("prof", selectedProfession)
     }
-    const [textComment, setTextComment] = useState(null)
-    // const updateForm = () => {
-    //     useEffect(() => {
-    //         },[comments,setComments])
-    // }
+    const [textComment, setTextComment] = useState("")
     useEffect(() => {
         },[comments])
     const getCommentsForUser = (id) => {
@@ -98,7 +87,6 @@ const UserProfile = ({id, users}) => {
         setTextComment(e.target.value)
     }
     const handleDeletePost = (idPostToDelete) => {
-        console.log('id post to  delete',idPostToDelete)
         api.comments.remove(idPostToDelete)
         .then(data => {
             api.comments.fetchCommentsForUser(id)
@@ -119,7 +107,7 @@ const UserProfile = ({id, users}) => {
                         text="settings"
                         content={<IoSettingsSharp/>}
                         linkTo={{
-                            pathname: `/sign-in/edit/${id}`,
+                            pathname: `/edit/${id}`,
                             state: {
                                 name: user.name,
                                 professionId: user.profession?._id,
@@ -227,7 +215,8 @@ const UserProfile = ({id, users}) => {
                                         onChange={handleSelectProfession}
                                         className="form-select"
                                         name="userId"
-                                        value={selectedProfession?.name}
+                                        //value={selectedProfession?.name}
+                                        defaultValue={selectedProfession?.name }
                                     >
                                         <option disabled value="" selected>
                                             Выберите пользователя
@@ -238,7 +227,7 @@ const UserProfile = ({id, users}) => {
                                                     id={p._id}
                                                     defaultValue={p}
                                                     key={p._id}
-                                                    selected={selectedProfession?.name && (p.name === selectedProfession.name)}
+                                                    //selected={selectedProfession?.name && (p.name === selectedProfession.name)}
                                                     >{p.name}</option>
                                             })
                                         }
@@ -253,7 +242,7 @@ const UserProfile = ({id, users}) => {
                                     >
                                     <textarea
                                         onChange={handleInputComment}
-                                        defaultValue={textComment}
+                                        //defaultValue={textComment}
                                         value={textComment}
                                         className="form-control"
                                         id="exampleFormControlTextarea1"
@@ -262,7 +251,7 @@ const UserProfile = ({id, users}) => {
                                     <button
                                         type="submit"
                                         className="btn btn-primary btn-block login-btn"
-                                        disabled={!textComment || (textComment?.length < 7)}
+                                        disabled={!selectedProfession || !textComment || (textComment?.length < 7)}
                                         >post
                                     </button>
                                 </form>
@@ -281,68 +270,7 @@ const UserProfile = ({id, users}) => {
                             />
                         </div>
                     </div>
-                    {/* old stuff */}
-                        {/* <div className="d-flex flex-column flex-shrink-3 p-3">
-                        <h1>{user?.name}</h1>
-                        <h2>{user?.profession?.name}</h2>
-                        <h3><Qualitie qualities={Object.assign({}, user?.qualities)} /></h3>
-                        <h3>profession: {user.profession?.name ? user?.profession?.name : "---"}</h3>
-                        <h3>gender: {user.sex ? user.sex : "---"}</h3>
-                        <h3>email: {user.email ? user.email : "---"}</h3>
-                        <h3>meetings: {user.completedMeetings}</h3>
-                        <h3>rate: {user.rate}</h3>
-                        <div className="flex-shrink-2">
-                            <Link
-                                style={{
-                                    color: 'white',
-                                    textDecoration: 'none',
-                                    fontSize: 20,
-                                    borderRadius: 8,
-                                    fontStyle: 'bold',
-                                    alignItems: 'center',
-                                    }}
-                                to="/users">
-                                <div className="flex-shrink-2">
-                                <Button
-                                    size="lg"
-                                    className="mt-2"
-                                    variant="secondary"
-                                >back to all users</Button>
-                                </div>
-                            </Link>
-                            <Link
-                                to={{
-                                    pathname: `/sign-in/edit/${id}`,
-                                    state: {
-                                        name: user.name,
-                                        professionId: user.profession?._id,
-                                        professionName: user.profession?.name,
-                                        qualities: user.qualities,
-                                        email: user.email,
-                                        sex: user.sex,
-                                    },
-                                    //query:{thing: 'asdf', another1: 'stuff'}
-                                }}
-                                style={{
-                                    color: 'white',
-                                    textDecoration: 'none',
-                                    fontSize: 20,
-                                    borderRadius: 8,
-                                    fontStyle: 'bold',
-                                    alignItems: 'center',
-                                    }}
-                                >
-                                <div className="flex-shrink-2">
-                                <Button
-                                    size="lg"
-                                    className="mt-2"
-                                    variant="secondary"
-                                >edit user</Button>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    ...end comments */}
+                    {/*  */}
                 </div>
             </div>
         </div>

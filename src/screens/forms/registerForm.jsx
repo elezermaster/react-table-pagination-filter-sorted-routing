@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import '../screens/login.css'
+import '../../screens/login.css'
 import {Link,useParams,useLocation,useHistory} from 'react-router-dom'
-import TextInputField from '../components/textInputField';
-import {validator} from '../utils/validator'
+import TextInputField from '../../components/textInputField';
+import {validator} from '../../utils/validator'
 import {Form,Select} from 'react-bootstrap'
-import api from '../API'
-import RadioBtnField from '../components/radioBtnField'
+import api from '../../API'
+import RadioBtnField from '../../components/radioBtnField'
 import SelectReact from 'react-select'
-import MultiSelectField from '../components/multiSelect'
-import FormSelectField from '../components/formSelectField';
+import MultiSelectField from '../../components/multiSelect'
+import FormSelectField from '../../components/formSelectField';
 
-const LoginForm = () => {
+const RegisterForm = () => {
     const history = useHistory();
     const {type,id} = useParams()
     const location = useLocation();
@@ -82,7 +82,9 @@ const LoginForm = () => {
                 )
             //funcRedirect(`/users/${id}`)
         }
+        console.log('login submit valid', isValidSubmit)
         console.log('isValidSubmit',isValidSubmit)
+        console.log('errors submit', errors)
         if (isValidSubmit) {
             funcRedirect("/")
         }
@@ -181,28 +183,26 @@ const LoginForm = () => {
         <div className="auth-inner">
 
         <form onSubmit={handleSubmit}>
-        <h3>{formType}</h3>
-
-        {user?.name &&
-                <TextInputField
-                label="Name"
-                type="name"
-                name="name"
-                defaultValue={user.name}
-                onChange={handleChange}
-                placeholder="Enter name"
-                //parentClassName="form-group"
-                //className="form-control"
-                id="name"
-                error={errors && Object.keys(errors).length !== 0 && errors.name}
-            />
-        }
-
+        <h3>{"Register"}</h3>
+        {/* Name Field */}
+        <TextInputField
+            label="Name"
+            type="name"
+            name="name"
+            defaultValue={user?.name}
+            onChange={handleChange}
+            placeholder="Enter name"
+            //parentClassName="form-group"
+            //className="form-control"
+            id="name"
+            error={errors && Object.keys(errors).length !== 0 && errors.name}
+        />
+        {/* Email Field */}
         <TextInputField
             label="Email address"
             type="email"
             name="email"
-            defaultValue={user && user.email}
+            defaultValue={user && user?.email}
             onChange={handleChange}
             placeholder="Enter email"
             //parentClassName="form-group"
@@ -210,22 +210,20 @@ const LoginForm = () => {
             id="email"
             error={errors && Object.keys(errors).length !== 0 && errors.email}
         />
-        {(formType !== "edit") &&
-                <TextInputField
-                label="Password"
-                type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                placeholder="Enter password"
-                //parentClassName="form-group"
-                //className="form-control"
-                id="password"
-                error={errors && Object.keys(errors).length !== 0 && errors.password}
-            />
-        }
+        {/* Password Field */}
+        <TextInputField
+            label="Password"
+            type="password"
+            name="password"
+            value={data.password}
+            onChange={handleChange}
+            placeholder="Enter password"
+            //parentClassName="form-group"
+            //className="form-control"
+            id="password"
+            error={errors && Object.keys(errors).length !== 0 && errors.password}
+        />
         {/* Second Password Form */}
-        {(formType === "register") &&//no neeed edit here
         <TextInputField
             label="Password Repeat"
             type="password"
@@ -237,10 +235,9 @@ const LoginForm = () => {
             //className="form-control"
             id="password2"
             error={errors && Object.keys(errors).length !== 0 && errors.password2}
-        />}
+        />
         {/* Select Options Form Professions  */}
-        {(formType === "register" || formType === "edit") &&
-        (<div className="formGroup">
+        <div className="formGroup">
         <label className="mt-2" htmlFor="selectProfession">Choose Profession</label>
         <FormSelectField
             data={data}
@@ -251,10 +248,8 @@ const LoginForm = () => {
         />
         {errors && Object.keys(errors).length !== 0 && errors.profession &&
             <span className="help-block error text-danger">{errors.profession}</span>}
-        </div>)
-        }
+        </div>
         {/* Radio Button Sex */}
-        {(formType === "register" || formType === "edit") &&
         <RadioBtnField
             options={[
                 {name: "Male", value: "male"},
@@ -268,12 +263,9 @@ const LoginForm = () => {
             selected={user && user?.sex}
         >
         </RadioBtnField>
-        }
         {errors && Object.keys(errors).length !== 0 && errors.sex &&
             <span className="help-block error text-danger">{errors.sex}</span>}
         {/* Multy Select Qualities */}
-        {(formType === "register" || formType === "edit") &&
-            (
             <div className="formGroup">
             <label className="mt-2" htmlFor="select">Choose Qualities</label>
             <MultiSelectField
@@ -294,12 +286,9 @@ const LoginForm = () => {
                 />
                 {errors && Object.keys(errors).length !== 0 && errors.qualitie &&
                     <span className="help-block error text-danger">{errors.qualitie}</span>}
-                </div>//
-                )
-        }
+                </div>
         {/* Form Check Remember Me */}
-        {(formType !== "edit") &&
-                <div className="form-group mt-2">
+            <div className="form-group mt-2">
                 <div className="custom-control custom-checkbox">
                     {/* <input type="checkbox" className="custom-control-input" id="customCheck1" /> */}
                     <Form.Check
@@ -316,39 +305,25 @@ const LoginForm = () => {
                     {/* <label className="custom-control-label" htmlFor="customCheck1">Remember me</label> */}
                 </div>
             </div>
-        }
         {/* Submit Button */}
-        {(formType === "edit")
-        ? <button
-                    type="submit"
-                    className="btn btn-primary btn-block login-btn"
-                    //disabled={Object.keys(errors).length > 2}
-                    >Submit Edit
-        </button>
-        : <Link to={errors ? "#" : `users/`}>
+        {/* <Link to={"#"}> */}
                 <button
                     type="submit"
                     className="btn btn-primary btn-block login-btn"
                     //disabled={!(errors === null)}
                     >Submit
                 </button>
-            </Link>
-        }
+        {/* </Link> */}
 
-        {(formType === "login") && <p className="forgot-password text-right">
-            Forgot <a href="#">password?</a>
-        </p>}
         {/* Toggle SignUp to SignIn */}
-        {(formType !== "edit") &&
                 <p className="forgot-password text-right">
-                {formType === "register" ? "Registered? " : "Not registered? "}
+                {"Registered? "}
                 <Link
-                    onClick={() => setFormType(prevState => prevState === "register" ? "login" : "register")}
-                    to={formType === "register" ? "/sign-in" : "/sign-in/register"}>
-                {formType === "register" ? "sign in" : "sign up"}
+                    onClick={() => {}}
+                    to={"/login"}>
+                {"sign in"}
                 </Link>
             </p>
-        }
 
     </form>
 
@@ -357,4 +332,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;

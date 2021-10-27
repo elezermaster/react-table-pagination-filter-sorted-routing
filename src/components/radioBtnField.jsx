@@ -3,17 +3,11 @@ import PropTypes from 'prop-types'
 import {InputGroup,FormControl,Row,Col,Container,Form} from 'react-bootstrap'
 
 const RadioBtnField = ({options,name,onChange,value,label,selected}) => {
-    console.log('radio options',options)
-    console.log('radio name',name)
-    console.log('radio value',value)
-    console.log('radio selected sex',selected)
     const handleChange = ({target}) => {
-        console.log('target sex',target.value)
         onChange({name: target.name, value: target.value})
     }
     useEffect(() => {
         onChange({name: name,value: selected})
-            console.log('selected sex setted :',selected)
         },[selected])
     return (
         <>
@@ -25,7 +19,6 @@ const RadioBtnField = ({options,name,onChange,value,label,selected}) => {
                     borderWidth: "1px",
                     borderStyle: "outset",
                     borderColor: "#6c757d",
-                    //borderRadius: "5px",
                     padding: "5px",
                     justifyContent: "space-around", //"space-between",
                     display: "flex",
@@ -57,10 +50,6 @@ const RadioBtnField = ({options,name,onChange,value,label,selected}) => {
                             //checked={selected === option.value || value === option.value}
                             onChange={handleChange}
                             defaultValue={option.value}
-                            // selected={selected?.professionId === profession._id || profession._id === data.profession}
-                            // key={selected?.professionId || profession._id}
-                            // value={selected?.professionId || profession._id}
-                            // defaultValue={ selected?.professionId || profession._id}>
                         />
                     ))}
 

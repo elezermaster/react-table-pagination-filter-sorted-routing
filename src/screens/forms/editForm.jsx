@@ -1,28 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import '../screens/login.css'
+import '../../screens/login.css'
 import {Link,useParams,useLocation,useHistory} from 'react-router-dom'
-import TextInputField from '../components/textInputField';
-import {validator} from '../utils/validator'
+import TextInputField from '../../components/textInputField';
+import {validator} from '../../utils/validator'
 import {Form,Select} from 'react-bootstrap'
-import api from '../API'
-import RadioBtnField from '../components/radioBtnField'
+import api from '../../API'
+import RadioBtnField from '../../components/radioBtnField'
 import SelectReact from 'react-select'
-import MultiSelectField from '../components/multiSelect'
-import FormSelectField from '../components/formSelectField';
+import MultiSelectField from '../../components/multiSelect'
+import FormSelectField from '../../components/formSelectField';
 
-const LoginForm = () => {
+const EditForm = () => {
     const history = useHistory();
-    const {type,id} = useParams()
+    const {id} = useParams()
     const location = useLocation();
     const user = location.state
-    const [formType, setFormType] = useState(type)//"register" ? "login" ? "edit"
     const [data, setData] = useState({
         email: "",
         password: "",
         password2: "",
         profession: "",
         sex: "",
-        qualitie: [],
+        qualities: [],
         remember: false,
         name: "",
     })
@@ -48,7 +47,6 @@ const LoginForm = () => {
         let getProfession = null
         professions && Object.keys(professions).forEach(prof => {
             if (professions[prof]._id === id) {
-                //console.log('find prof',professions[prof])
                 getProfession = professions[prof]
             }
         })
@@ -58,21 +56,24 @@ const LoginForm = () => {
         history.push(url)// <Link to={`/users/${id}`}>
     }
     const handleSubmit = e => {
-        console.log('errors',errors)
         e.preventDefault()
-        //const isValid = validate()
         const [isValidSubmit , isEditValid] = validate()
         const professionUpdated = getProfessionById(data.profession)
         data.profession = professionUpdated
-        const qualitiesUpdated = data.qualitie.map(q => {
-            return {_id: q.value, name: q.label, color: q.color}
+        //check if user.qualities and data.qualitie not the same
+        //user?.qualities}// || data.qualitie
+        const qualitiesUpdated = data.qualities.map(q => {
+            if (!q._id) {
+                return {_id: q.value, name: q.label, color: q.color}
+            }
+            return {_id: q._id, name: q.name, color: q.color}
+            //
         })
-        console.log('qualities before submit', qualitiesUpdated)
+        data.qualities = qualitiesUpdated
         // setData(prevState => ({
         //     ...prevState,
         //     qualities: qualitiesUpdated,
         // }))
-        data.qualities = qualitiesUpdated
         setData(data)
 
         if (isEditValid) { //if true then no errors on submit
@@ -80,17 +81,11 @@ const LoginForm = () => {
                 .then(data => console.log('data updated on local storage',data),
                     //console.log('data updated',JSON.parse(localStorage.getItem("users")).find((user) => user._id === id,))
                 )
-            //funcRedirect(`/users/${id}`)
+            funcRedirect(`/users/${id}`)
         }
-        console.log('isValidSubmit',isValidSubmit)
         if (isValidSubmit) {
-            funcRedirect("/")
+            //funcRedirect("/")
         }
-        //funcRedirect()
-        // if (!isValid) {
-        //     console.log("is submit valid",isValid)
-        //     return;
-        // }
     }
     useEffect(() => {
         //console.log('data changed effect', data)
@@ -143,7 +138,7 @@ const LoginForm = () => {
                 message: "choose your gender",
             },
         },
-        qualitie: {
+        qualities: {
             isRequired: {
                 message: "choose at least one qualitie",
             },
@@ -156,9 +151,7 @@ const LoginForm = () => {
     }
     const validate = () => {
         const errors = validator(data,validatorConfig)
-        console.log('errors',errors)
         setErrors(errors)
-        console.log('Object.keys(errors).length',Object.keys(errors).length)
         const isValidSubmit = errors && (Object.keys(errors).length === 0)
         const isEditValid = errors && (Object.keys(errors).length === 2)
         return ([isValidSubmit, isEditValid])
@@ -174,73 +167,59 @@ const LoginForm = () => {
             ...prevState,
             name: user?.name,
         }))
-            console.log('user setted :',user)
         },[user?.name])
     return (
         <div className="auth-wrapper">
         <div className="auth-inner">
 
         <form onSubmit={handleSubmit}>
-        <h3>{formType}</h3>
-
-        {user?.name &&
-                <TextInputField
-                label="Name"
-                type="name"
-                name="name"
-                defaultValue={user.name}
-                onChange={handleChange}
-                placeholder="Enter name"
-                //parentClassName="form-group"
-                //className="form-control"
-                id="name"
-                error={errors && Object.keys(errors).length !== 0 && errors.name}
-            />
-        }
-
+        <h3>{"Edit Form"}</h3>
+        {/* Name Field */}
+        <TextInputField
+            label="Name"
+            type="name"
+            name="name"
+            defaultValue={user?.name}
+            onChange={handleChange}
+            placeholder="Enter name"
+            id="name"
+            error={errors && Object.keys(errors).length !== 0 && errors.name}
+        />
+        {/* Email Field */}
         <TextInputField
             label="Email address"
             type="email"
             name="email"
-            defaultValue={user && user.email}
+            defaultValue={user && user?.email}
             onChange={handleChange}
             placeholder="Enter email"
-            //parentClassName="form-group"
-            //className="form-control"
             id="email"
             error={errors && Object.keys(errors).length !== 0 && errors.email}
         />
-        {(formType !== "edit") &&
-                <TextInputField
-                label="Password"
-                type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                placeholder="Enter password"
-                //parentClassName="form-group"
-                //className="form-control"
-                id="password"
-                error={errors && Object.keys(errors).length !== 0 && errors.password}
-            />
-        }
+        {/* Password Field */}
+        {/* <TextInputField
+            label="Password"
+            type="password"
+            name="password"
+            value={data.password}
+            onChange={handleChange}
+            placeholder="Enter password"
+            id="password"
+            error={errors && Object.keys(errors).length !== 0 && errors.password}
+        /> */}
         {/* Second Password Form */}
-        {(formType === "register") &&//no neeed edit here
-        <TextInputField
+        {/* <TextInputField
             label="Password Repeat"
             type="password"
             name="password2"
             value={data.password2}
             onChange={handleChange}
             placeholder="Re-enter password"
-            //parentClassName="form-group"
-            //className="form-control"
             id="password2"
             error={errors && Object.keys(errors).length !== 0 && errors.password2}
-        />}
+        /> */}
         {/* Select Options Form Professions  */}
-        {(formType === "register" || formType === "edit") &&
-        (<div className="formGroup">
+        <div className="formGroup">
         <label className="mt-2" htmlFor="selectProfession">Choose Profession</label>
         <FormSelectField
             data={data}
@@ -251,10 +230,8 @@ const LoginForm = () => {
         />
         {errors && Object.keys(errors).length !== 0 && errors.profession &&
             <span className="help-block error text-danger">{errors.profession}</span>}
-        </div>)
-        }
+        </div>
         {/* Radio Button Sex */}
-        {(formType === "register" || formType === "edit") &&
         <RadioBtnField
             options={[
                 {name: "Male", value: "male"},
@@ -268,12 +245,9 @@ const LoginForm = () => {
             selected={user && user?.sex}
         >
         </RadioBtnField>
-        }
         {errors && Object.keys(errors).length !== 0 && errors.sex &&
             <span className="help-block error text-danger">{errors.sex}</span>}
         {/* Multy Select Qualities */}
-        {(formType === "register" || formType === "edit") &&
-            (
             <div className="formGroup">
             <label className="mt-2" htmlFor="select">Choose Qualities</label>
             <MultiSelectField
@@ -286,69 +260,23 @@ const LoginForm = () => {
                 }}
                 options={qualitieOptions}
                 onChange={handleChange}
-                name="qualitie"
-                value={user?.qualities || data.qualitie}
+                name="qualities"
+                value={user?.qualities || data.qualities}
                 //defaultValue={data.qualitie}
                 label="Choose your qualities"
                 selected={user?.qualities }
                 />
-                {errors && Object.keys(errors).length !== 0 && errors.qualitie &&
-                    <span className="help-block error text-danger">{errors.qualitie}</span>}
-                </div>//
-                )
-        }
-        {/* Form Check Remember Me */}
-        {(formType !== "edit") &&
-                <div className="form-group mt-2">
-                <div className="custom-control custom-checkbox">
-                    {/* <input type="checkbox" className="custom-control-input" id="customCheck1" /> */}
-                    <Form.Check
-                        className="custom-control-input"
-                        inline
-                        label="Remember me"
-                        name="remember"
-                        type="checkbox"
-                        id="customCheck1"
-                        onChange={(e) => handleChange({name: "remember",value: (e.target.value)})}
-                        value={data.remember}
-                        checked={data.remember}
-                    />
-                    {/* <label className="custom-control-label" htmlFor="customCheck1">Remember me</label> */}
+                {errors && Object.keys(errors).length !== 0 && errors.qualities &&
+                    <span className="help-block error text-danger">{errors.qualities}</span>}
                 </div>
-            </div>
-        }
+
         {/* Submit Button */}
-        {(formType === "edit")
-        ? <button
+         <button
                     type="submit"
                     className="btn btn-primary btn-block login-btn"
                     //disabled={Object.keys(errors).length > 2}
                     >Submit Edit
         </button>
-        : <Link to={errors ? "#" : `users/`}>
-                <button
-                    type="submit"
-                    className="btn btn-primary btn-block login-btn"
-                    //disabled={!(errors === null)}
-                    >Submit
-                </button>
-            </Link>
-        }
-
-        {(formType === "login") && <p className="forgot-password text-right">
-            Forgot <a href="#">password?</a>
-        </p>}
-        {/* Toggle SignUp to SignIn */}
-        {(formType !== "edit") &&
-                <p className="forgot-password text-right">
-                {formType === "register" ? "Registered? " : "Not registered? "}
-                <Link
-                    onClick={() => setFormType(prevState => prevState === "register" ? "login" : "register")}
-                    to={formType === "register" ? "/sign-in" : "/sign-in/register"}>
-                {formType === "register" ? "sign in" : "sign up"}
-                </Link>
-            </p>
-        }
 
     </form>
 
@@ -357,4 +285,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default EditForm;

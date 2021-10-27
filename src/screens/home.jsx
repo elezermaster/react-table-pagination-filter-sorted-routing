@@ -13,7 +13,7 @@ const Home = () => {
       })
     return (
         <div className="svg-animation">
-           <h1>Home under construction</h1>
+           <h1>Check users and login tab !</h1>
            <Cactus/>
         </div>
     );

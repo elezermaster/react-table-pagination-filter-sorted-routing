@@ -4,8 +4,10 @@ import NavBar from './components/navBar';
 import {BrowserRouter,Redirect,Route,Switch,Link, NavLink} from 'react-router-dom'
 import Home from './screens/home'
 import PageNotFound from './screens/pageNotFound'
-import LoginForm from './screens/loginForm'
-import SignUpForm from './screens/signupForm'
+import LoginForm from './screens/forms/loginForm'
+import RegisterForm from './screens/forms/registerForm'
+import EditForm from './screens/forms/editForm'
+import UserProfile from './screens/userProfile'
 import './index.css'
 
 export const UsersSearchContext = React.createContext()
@@ -39,8 +41,9 @@ function App() {
           path="/"
           component={Home}
         />
-        <Route exact path="/sign-in/:type?/:id?" component={LoginForm} />
-        {/* <Route exact path="/sign-in/:type?" component={SignUpForm} /> */}
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path="/register" component={RegisterForm} />
+        <Route exact path="/edit/:id?" component={EditForm} />
         <Route
           exact
           path="/404"

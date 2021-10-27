@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 const animatedComponents = makeAnimated();
 const MultiSelect = ({options,onChange,name,label,value,selected}) => {
-    const defaultValuesSelected = Object.keys(selected).map(qualitie => ({
+    const defaultValuesSelected = selected && Object.keys(selected).map(qualitie => ({
         label: value[qualitie].name,
         value: value[qualitie]._id,
         color: value[qualitie].color,
@@ -14,17 +14,13 @@ const MultiSelect = ({options,onChange,name,label,value,selected}) => {
         )
     useEffect(() => {
         onChange({name: name,value: defaultValuesSelected})
-            console.log('selected multi qualitie setted :',selected)
-            console.log('selected multi defaultValuesSelected setted :',defaultValuesSelected)
         },[selected])
-    const defaultValues = Object.keys(value).map(qualitie => ({
+    const defaultValues = value && Object.keys(value).map(qualitie => ({
         label: value[qualitie].name,
         value: value[qualitie]._id,
         color: value[qualitie].color,
         }),
         )
-    console.log('defaultValues',defaultValues)
-    console.table("options",options)
     const optionsQualitiesArray = !Array.isArray(options) && typeof options === "object"
     ? Object.keys(options).map(qualitie => ({
         label: options[qualitie].name,
@@ -38,14 +34,11 @@ const MultiSelect = ({options,onChange,name,label,value,selected}) => {
     }
     useEffect(() => {
         onChange({name: name,value: value})
-            console.log('multi selected setted :',value)
         },[value])
 
-    const qualitieNames = optionsQualitiesArray.map((name, index) => {
-        return name.label
-    })
-    console.table("qualitieNames",qualitieNames)
-    console.table("optionsQualitiesArray",optionsQualitiesArray)
+    // const qualitieNames = optionsQualitiesArray.map((name, index) => {
+    //     return name.label
+    // })
     return (
         <SelectStyled
         closeMenuOnSelect={false}

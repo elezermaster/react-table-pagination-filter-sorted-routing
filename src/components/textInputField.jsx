@@ -15,7 +15,6 @@ const textInputField = ({
     error,
     defaultValue,
 }) => {
-    console.log(`error in text field ${name}:`,error)
     const handleChange = ({target}) => {
         onChange({name: target.name, value: target.value})
     }
@@ -30,7 +29,6 @@ const textInputField = ({
     }
     useEffect(() => {
         onChange({name: name,value: defaultValue})
-            console.log('selected text field setted :',defaultValue)
         },[defaultValue])
     return (
         <div className={
