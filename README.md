@@ -7,7 +7,7 @@ Created by <h3>
   </a>
 </h3>
 
-<p><a href="https://elezermaster.github.io/react-table-pagination-filter-sorted-routing/" target="_blank">🌎 сайт проекта</a></p>
+<p><a href="https://elezermaster.github.io/react-table-pagination-filter-sorted-routing/" target="_blank">🌎 check demo</a></p>
 
 ## Функционал
 
@@ -20,19 +20,19 @@ Created by <h3>
 
 ## Запуск проекта
 
-Для запуска проекта вам необходимо набрать команду в терминале:
+to run from terminal:
 
 ```sh 
 npm i
 ```
 
-После набрать команду:
+and then
 
 ```
 npm start
 ```
 
-## Технологии проекта
+## Technologies used
 
 <p>
   <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=for-the-badge&logo=react&logoColor=white" />
@@ -65,7 +65,7 @@ npm start
 </h3>
 
 
-Установлены следующие библиотеки и зависимости:
+libraries used:
 
 - bootstrap
 - material ui
